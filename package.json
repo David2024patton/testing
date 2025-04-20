@@ -1,0 +1,97 @@
+{
+  "name": "vibe-coding",
+  "displayName": "VibeCoding",
+  "description": "AI-powered coding assistant that brings the vibe to your coding flow using multiple LLM backends",
+  "version": "1.4.0",
+  "publisher": "VibeCodingCommunity",
+  "license": "MIT",
+  "engines": { "vscode": "^1.85.0" },
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "vibecoding.startCoding", "title": "Start VibeCoding", "category": "VibeCoding" },
+      { "command": "vibecoding.stopCoding", "title": "Stop VibeCoding", "category": "VibeCoding" },
+      { "command": "vibecoding.generateDocs", "title": "Generate Documentation", "category": "VibeCoding" },
+      { "command": "vibecoding.backupProject", "title": "Backup Project", "category": "VibeCoding" },
+      { "command": "vibecoding.viewHistory", "title": "View File Change History", "category": "VibeCoding" },
+      { "command": "vibecoding.reindexWorkspace", "title": "Re-Index Workspace", "category": "VibeCoding" },
+      { "command": "vibecoding.viewLogs", "title": "View Vibe Logs", "category": "VibeCoding" }
+    ],
+    "configuration": {
+      "title": "VibeCoding",
+      "properties": {
+        "vibecoding.provider": {
+          "type": "string",
+          "enum": [
+            "ollama", "openai", "huggingface", "grok", "deepseek", "surferai", "youchat", "semrush",
+            "pi.ai", "mistral.ai", "copilot", "gemini", "claude", "llama", "perplexity",
+            "jasper", "chatsonic", "undetectable", "character.ai", "clickup", "writesonic",
+            "codewhisperer"
+          ],
+          "default": "ollama",
+          "description": "Select which LLM provider to use"
+        },
+        "vibecoding.ollamaUrlLocal": { "type": "string", "default": "http://localhost:11434", "description": "Local Ollama API URL" },
+        "vibecoding.ollamaUrlDocker": { "type": "string", "default": "http://host.docker.internal:11434", "description": "Docker/Podman internal Ollama API URL" },
+        "vibecoding.ollamaUrlCustom": { "type": "string", "default": "", "description": "Custom Ollama API URL" },
+        "vibecoding.openaiApiKey": { "type": "string", "default": "", "description": "API key for OpenAI" },
+        "vibecoding.openaiModel": { "type": "string", "default": "gpt-3.5-turbo", "description": "OpenAI model to use" },
+        "vibecoding.huggingfaceEndpoint": { "type": "string", "default": "https://api-inference.huggingface.co/models", "description": "Base URL for Hugging Face Inference API" },
+        "vibecoding.huggingfaceToken": { "type": "string", "default": "", "description": "API token for Hugging Face" },
+        "vibecoding.huggingfaceModel": { "type": "string", "default": "", "description": "Hugging Face model identifier" },
+        "vibecoding.grokApiKey": { "type": "string", "default": "", "description": "API key for Grok (xAI)" },
+        "vibecoding.grokEndpoint": { "type": "string", "default": "https://api.grok.ai", "description": "Grok API URL" },
+        "vibecoding.claudeApiKey": { "type": "string", "default": "", "description": "API key for Anthropic Claude" },
+        "vibecoding.claudeEndpoint": { "type": "string", "default": "https://api.anthropic.com/v1", "description": "Claude API URL" },
+        "vibecoding.geminiApiKey": { "type": "string", "default": "", "description": "API key for Google Gemini" },
+        "vibecoding.geminiEndpoint": { "type": "string", "default": "https://us-central1-aiplatform.googleapis.com/v1", "description": "Gemini/Vertex AI endpoint" },
+        "vibecoding.deepseekApiKey": { "type": "string", "default": "", "description": "API key for DeepSeek" },
+        "vibecoding.deepseekEndpoint": { "type": "string", "default": "https://api.deepseek.com/v1/chat/completions", "description": "DeepSeek API endpoint" },
+        "vibecoding.surferApiKey": { "type": "string", "default": "", "description": "API key for Surfer SEO" },
+        "vibecoding.surferEndpoint": { "type": "string", "default": "https://api.surferseo.com/v1/content/create", "description": "Surfer API URL" },
+        "vibecoding.youChatApiKey": { "type": "string", "default": "", "description": "API key for You.com" },
+        "vibecoding.youChatEndpoint": { "type": "string", "default": "https://api.you.com/public_api/v1/chat", "description": "YouChat API URL" },
+        "vibecoding.semrushApiKey": { "type": "string", "default": "", "description": "API key for Semrush" },
+        "vibecoding.semrushEndpoint": { "type": "string", "default": "https://api.semrush.com/", "description": "Semrush API URL" },
+        "vibecoding.piApiKey": { "type": "string", "default": "", "description": "API key for Pi.ai" },
+        "vibecoding.piEndpoint": { "type": "string", "default": "https://api.piapi.ai/v1/generate", "description": "Pi.ai API URL" },
+        "vibecoding.mistralApiKey": { "type": "string", "default": "", "description": "API key for Mistral.ai" },
+        "vibecoding.mistralEndpoint": { "type": "string", "default": "https://api.mistral.ai/v1/models/generation", "description": "Mistral API URL" },
+        "vibecoding.logLevel": { "type": "string", "enum": ["debug","info","warn","error"], "default": "info", "description": "Minimum log level for VibeCoding logs" },
+        "vibecoding.performance": { "type": "string", "enum": ["high","balanced","efficient"], "default": "balanced", "description": "Performance mode" },
+        "vibecoding.autoSave": { "type": "boolean", "default": true, "description": "Auto-save generated code" },
+        "vibecoding.enableTelemetry": { "type": "boolean", "default": false, "description": "Enable sending telemetry events" }
+      }
+    },
+    "languages": [
+      { "id": "python", "extensions": [".py"], "aliases": ["Python"] },
+      { "id": "javascript", "extensions": [".js"], "aliases": ["JavaScript"] },
+      { "id": "java", "extensions": [".java"], "aliases": ["Java"] }
+    ],
+    "diagnostics": [
+      { "language": "python", "source": "VibeCoding" },
+      { "language": "javascript", "source": "VibeCoding" },
+      { "language": "java", "source": "VibeCoding" }
+    ]
+  },
+  "scripts": {
+    "preinstall": "npx npm-check-updates -u",
+    "update:deps": "npx npm-check-updates -u && npm install",
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "npm-check-updates": "^16.0.0",
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.11.5",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "systeminformation": "^5.22.9",
+    "axios": "^1.6.7",
+    "fs-extra": "^11.1.1",
+    "eslint": "^8.57.0",
+    "flake8": "^0.0.1-security"
+  }
+}

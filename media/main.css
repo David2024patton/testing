@@ -1,0 +1,108 @@
+/* File: media/main.css
+   Location: media/main.css
+   Docs: docs/main.css.md
+   Description: Styles for the VibeCoding WebView UI.
+*/
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    padding: 20px;
+    color: #e0e0e0;
+  }
+  
+  body.dark {
+    background: linear-gradient(135deg, #1e1e1e, #2a2a2a);
+  }
+  
+  body.light {
+    background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+    color: #333;
+  }
+  
+  h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #ff6f61;
+    text-shadow: 0 0 10px rgba(255, 111, 97, 0.5);
+  }
+  
+  body.light h1 {
+    color: #ff6f61;
+    text-shadow: none;
+  }
+  
+  h2 {
+    font-size: 20px;
+    color: #ffcc5c;
+    margin-bottom: 10px;
+  }
+  
+  body.light h2 {
+    color: #d4a017;
+  }
+  
+  div {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #88d8b0;
+  }
+  
+  body.light label {
+    color: #4a8a67;
+  }
+  
+  textarea, select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #555;
+    border-radius: 5px;
+  }
+  
+  body.dark textarea, body.dark select {
+    background-color: #333;
+    color: #e0e0e0;
+  }
+  
+  body.light textarea, body.light select {
+    background-color: #fff;
+    color: #333;
+    border-color: #ccc;
+  }
+  
+  button {
+    padding: 8px 16px;
+    background: linear-gradient(45deg, #ff6f61, #ffcc5c);
+    color: #1e1e1e;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  button:hover {
+    background: linear-gradient(45deg, #ffcc5c, #ff6f61);
+  }
+  
+  #progress-log {
+    white-space: pre-wrap;
+    padding: 10px;
+    height: 200px;
+    overflow-y: auto;
+    border-radius: 5px;
+    border: 1px solid #555;
+  }
+  
+  body.dark #progress-log {
+    background-color: #252526;
+  }
+  
+  body.light #progress-log {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+  }
+  
